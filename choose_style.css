@@ -1,0 +1,500 @@
+/* =================================================== */
+/* 0. 기본 설정 및 초기화 
+/* =================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    background-color: #fce4b4;
+}
+
+body {
+    width: 100vw; /* 뷰포트 너비 전체 */
+
+    display: flex;
+    flex-direction: column;
+
+    position: relative; /* 자식 요소의 절대 위치 기준 */
+    flex-direction: column;
+    overflow-x: hidden;
+
+    background-color: transparent;
+}
+
+
+/* 1. 배경 처리 영역 (전체 화면을 덮음) */
+.background-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; 
+}
+
+/* pc_paper 배경 (노란색 배경) */
+.paper-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('source/pc_paper.png'); 
+    background-repeat: repeat;
+    mix-blend-mode: normal;
+    opacity: 1; 
+}
+
+/* pc_margin 배경 (양쪽 마진, 반복 타일링) */
+/* 왼쪽 마진 */
+.margin-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: calc((100% - 1440px) / 2); 
+    min-width: 0; 
+    background-image: url('source/pc_margin.png'); 
+    background-repeat: repeat;
+}
+
+/* 오른쪽 마진 */
+.margin-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: calc((100% - 1440px) / 2); 
+    min-width: 0;
+    background-image: url('source/pc_margin.png');
+    background-repeat: repeat;
+}
+
+
+/* 2. 메인 콘텐츠 영역 */
+.main-content {
+    width: 100%;        
+    max-width: 1440px;      
+    position: relative;
+    margin: 260px auto 0 auto; /* 상단 여백 조정 */
+}
+
+
+/* =================================================== */
+/* 3. 타이틀 및 그리드 배치 */
+/* =================================================== */
+
+/* 타이틀 중앙 정렬 */
+.title-wrap {
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%) scale(1.0);
+    z-index: 10;
+    padding-top: 10px; /* 상단 여백 */
+    margin-bottom: 50px; /* 하단 여백 */
+}
+
+.choose-title-img {
+    width: 600px; /* 이미지 크기에 맞게 조절 */
+    height: auto;
+    display: inline-block;
+}
+
+/* 재료 그리드 영역 */
+.ingredients-grid {
+    display: grid;
+    /* 3열로 분할 */
+    grid-template-columns: repeat(3, 1fr); 
+    /* 행과 열 사이 간격 */
+    gap: 70px 100px; 
+    width: 1100px; 
+    margin: 0 auto; /* 그리드 중앙 정렬 */
+    padding-top: -10px;
+    padding-bottom: 180px;
+}
+
+/* 그림자 이미지 스타일 (pc_choose_shadow)  */
+.shadow-img {
+    position: absolute;
+    width: 100%;
+    max-width: 250px; 
+    height: auto;
+    z-index: 5;
+}
+
+
+
+/* =================================================== */
+/* 4. 재료 아이템 스타일 및 호버 효과 */
+/* =================================================== */
+.item-link {
+    display: block;
+    position: relative; /* 자식 요소의 위치 조정 기준 */
+    text-align: center;
+    transition: none;
+    cursor: pointer;
+    text-decoration: none; 
+}
+
+/* 재료 아이템 이미지 (ingredient-img) */
+.ingredient-img {
+    width: 100%;
+    height: auto;
+    position: relative; 
+    
+    z-index: 10;
+    
+    filter: saturate(0.2);
+    transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+/* 호버 효과: 이미지 자체의 크기 확대 */
+.item-link:hover .ingredient-img {
+    filter: saturate(1.0);
+    transform: scale(1.1); 
+}
+
+
+/* =================================================== */
+/* 개별 재료 아이템 크기 및 위치 조정 */
+/* =================================================== */
+
+/* 바나나 (pc_choose_banana) */
+.banana .ingredient-img {
+    width: 100%;
+    margin-top: -10px; 
+}
+
+/* 사슴뿔 (pc_choose_ber) */
+.ber .ingredient-img {
+    width: 80%;
+    margin-top: -30px; 
+}
+
+/* 개미 (pc_choose_ant) */
+.ant .ingredient-img {
+    width: 130%; 
+    margin-top: 60px; 
+    margin-left: -10px;
+}
+
+/* 생선 (pc_choose_fish) */
+.fish .ingredient-img {
+    width: 140%;
+    margin-top: -35px;
+    margin-left: -70px;
+}
+
+/* 통조림 스파게티 (pc_choose_spa) */
+.spa .ingredient-img {
+    width: 50%;
+    margin-top: -25px;
+}
+
+/* 완두콩 (pc_choose_wan) */
+.wan .ingredient-img {
+    width: 110%;
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+
+/* =================================================== */
+/* 그림자 위치 및 간격 개별 조정 */
+/* =================================================== */
+
+/* 바나나 */
+.banana .shadow-img {
+    bottom: -15px !important; 
+    left: 50%; 
+    transform: translateX(-50%);
+}
+
+/* 사슴뿔 */
+.ber .shadow-img {
+    bottom: -15px !important; 
+    left: 50%; 
+    transform: translateX(-50%);
+}
+
+/* 개미 */
+.ant .shadow-img {
+    bottom: -15px !important; 
+    left: 50%;
+    transform: translateX(-50%) !important; 
+}
+
+/* 생선 */
+.fish .shadow-img {
+    bottom: -35px !important;
+    left: 50% ;
+    transform: translateX(-50%) !important; 
+}
+
+/* 통조림 스파게티 */
+.spa .shadow-img {
+    bottom: -35px !important; 
+    left: 50%; 
+    transform: translateX(-50%);
+}
+
+/* 완두콩 */
+.wan .shadow-img {
+    bottom: -35px !important; 
+    left: 50%;
+    transform: translateX(-50%) !important; 
+}
+
+/* 로고 (WWP) */
+.logo-wrap {
+    position: absolute;
+    top: -220px;
+    left: 55px;
+    z-index: 20;
+}
+.logo-img {
+    width: 100px; /* 로고 이미지 크기 설정 */
+    height: 100%;
+    position: relative;
+}
+
+
+
+/* ==========================================================
+ * 푸터(Footer) 스타일
+ * ========================================================== */
+
+.site-footer {
+    position: relative;
+    z-index: 50;
+    width: 100%;
+    background-color: #fce4b4;
+    margin-top: 0;
+    
+    padding: 30px;
+    text-align: center;
+}
+
+.footer-content {
+    /* 텍스트 내용의 중앙 정렬을 유지 */
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-content p {
+    line-height: 1.5;
+}
+
+/* 상단 한국어 텍스트 스타일 */
+.site-footer .kor-text {
+    color: #9c603b; 
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.site-footer .copyright {
+    color: #9c603b; 
+    font-size: 13px;
+    font-weight: normal;
+}
+
+
+
+
+
+
+/* ==========================================================
+ * [모바일}
+ * ========================================================== */
+@media screen and (max-width: 768px) {
+
+
+/* 배경 정리: 체크무늬 마진 */
+    .margin-left, .margin-right {
+        /* 무조건 보이게 설정 */
+        display: block !important;
+        position: fixed !important; 
+        top: 0 !important;
+        height: 100vh !important;  
+        
+        width: 15px !important; 
+        background-size: 30px auto !important;
+        background-repeat: repeat-y !important;
+        
+        /* 맨 위에 얹기 */
+        z-index: 99999 !important;
+        pointer-events: none !important; /* 클릭 통과 */
+    }
+
+    /* 왼쪽 띠 */
+    .margin-left {
+        left: 0 !important;
+        right: auto !important;
+        background-image: url('source/pc_margin.png') !important; 
+        background-position: left top !important; 
+    }
+
+    /* 오른쪽 띠 */
+    .margin-right {
+        left: auto !important; 
+        right: 0 !important;
+        
+        background-image: url('source/pc_margin.png') !important;
+        background-position: right top !important; 
+    }
+
+
+
+    /* 메인 박스 */
+    .main-content {
+        width: 100% !important;
+        max-width: none !important; 
+        
+        margin: 0 !important;
+        position: relative !important; 
+        
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important; /* 내부 요소(타이틀, 재료) 중앙 정렬 */
+        
+        padding-top: 12vh !important; 
+        padding-bottom: 2.8vh !important; 
+    }
+
+    /* 로고 : 위치는 화면 끝, 크기만 락 걸림 */
+    .logo-wrap {
+        position: absolute !important;
+        top: 3vh !important;
+        
+        /* 항상 화면 왼쪽 끝 */
+        left: 5vw !important; 
+        
+        /* 크기는 커지되, 너무 커지지 않게 제한 */
+        width: 16vw !important; 
+        max-width: 96px !important; 
+        
+        z-index: 9999 !important;
+    }
+    .logo-img { width: 100%; }
+
+    /* 타이틀: 개별적으로 600px 락 걸기 */
+    .title-wrap {
+        position: relative !important; 
+        top: auto !important; left: auto !important;
+        transform: none !important;
+        
+        /* [핵심 3] 타이틀 스스로 600px 안에 갇힘 */
+        width: 80% !important; 
+        max-width: 500px !important; 
+        
+        margin-bottom: 1vh !important; 
+        padding: 0 !important;
+        z-index: 10;
+    }
+    .choose-title-img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* 재료 그리드: 개별적으로 600px 락 걸기 */
+    .ingredients-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important; 
+        width: 90% !important;      
+        max-width: 550px !important; 
+        
+        margin: 0 auto !important;
+        gap: 3vh 4% !important;    
+        padding-bottom: 15vh !important;
+    }
+
+    /* 순서 */
+    .banana { order: 1; }
+    .ant    { order: 2; }
+    .ber    { order: 3; }
+    .wan    { order: 4; }
+    .fish   { order: 5; }
+    .spa    { order: 6; }
+
+
+    /* 재료 아이템 상자 */
+    .item-link {
+        display: flex !important;          
+        flex-direction: column !important; 
+        justify-content: flex-end !important; 
+        align-items: center !important;    
+        
+        position: relative !important;
+        text-align: center !important;
+        
+        height: 19.1vh !important; 
+        min-height: 150px !important; 
+        
+        padding-bottom: 0 !important; 
+    }
+
+    /* 재료 이미지 공통 */
+    .ingredient-img {
+        margin: 0 auto !important; 
+        filter: saturate(1.0) !important;    
+        transform: scale(1.0) !important; 
+        height: auto !important;
+        display: block !important;
+        margin-bottom: 2.5vh !important; 
+    }
+
+    /* 재료별 크기 */
+    .banana .ingredient-img { width: 70% !important; }
+    .ant .ingredient-img    { width: 95% !important; margin-left: 5% !important; }
+    .ber .ingredient-img    { width: 60% !important; }
+    .wan .ingredient-img    { width: 80% !important; }
+    .fish .ingredient-img   { width: 100% !important; margin-left: -5% !important; }
+    .spa .ingredient-img    { width: 45% !important; }
+
+
+    /* 그림자 */
+    .ingredients-grid .item-link .shadow-img {
+        position: absolute !important; 
+        bottom: 0 !important; 
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        
+        width: 70% !important;
+        max-width: 120px !important;
+        
+        display: block !important;
+        margin: 0 !important; 
+        opacity: 0.6 !important;
+        z-index: -1 !important; 
+    }
+
+    /* 7. 푸터 */
+    .site-footer {
+        position: absolute !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        background-color: #fce4b4 !important; 
+        padding: 2vh 5vw !important; 
+        z-index: 100 !important;
+        box-sizing: border-box !important;
+    }
+    
+    .footer-content p, .site-footer .kor-text {
+        font-size: 10px !important; 
+        letter-spacing: -0.5px !important; 
+        word-break: keep-all; 
+        white-space: nowrap; 
+        line-height: 1.4;
+    }
+    
+    .site-footer .copyright {
+        font-size: 10px !important;
+        letter-spacing: 0 !important; 
+        margin-top: 3px !important;
+    }   
+}
