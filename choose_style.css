@@ -8,11 +8,13 @@
 }
 
 html {
+    width: 100%; /* 100%로 변경 */
+    overflow-x: hidden; /* 가로 스크롤 방지 */
     background-color: #fce4b4;
 }
 
 body {
-    width: 100vw; /* 뷰포트 너비 전체 */
+    width: 100%; /* 뷰포트 너비 전체 */
 
     display: flex;
     flex-direction: column;
@@ -369,14 +371,10 @@ body {
     /* 로고 : 위치는 화면 끝, 크기만 락 걸림 */
     .logo-wrap {
         position: absolute !important;
-        top: 3vh !important;
-        
-        /* 항상 화면 왼쪽 끝 */
-        left: 5vw !important; 
-        
-        /* 크기는 커지되, 너무 커지지 않게 제한 */
-        width: 16vw !important; 
-        max-width: 96px !important; 
+        top: 15px !important;  
+        left: 20px !important; 
+        width: 61px !important; 
+        max-width: none !important; 
         
         z-index: 9999 !important;
     }
@@ -473,28 +471,55 @@ body {
         z-index: -1 !important; 
     }
 
-    /* 7. 푸터 */
+   /* 7. 푸터 (모바일 수정) */
     .site-footer {
         position: absolute !important;
         bottom: 0 !important;
         width: 100% !important;
+        
+        /* 높이가 내용에 따라 늘어나도록 설정 */
+        height: auto !important; 
+        
         background-color: #fce4b4 !important; 
-        padding: 2vh 5vw !important; 
+        padding: 15px 10px !important; /* 양옆 패딩을 줄여서 글자 공간 확보 */
         z-index: 100 !important;
         box-sizing: border-box !important;
+        
+        /* 텍스트 중앙 정렬 */
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
     
+    .footer-content {
+        width: 100% !important;
+    }
+
     .footer-content p, .site-footer .kor-text {
         font-size: 10px !important; 
         letter-spacing: -0.5px !important; 
-        word-break: keep-all; 
-        white-space: nowrap; 
-        line-height: 1.4;
+        
+        /* [핵심 수정] 한 줄 강제 유지를 해제하고 줄바꿈 허용 */
+        white-space: normal !important; 
+        
+        /* 단어 단위로 끊어서 줄바꿈 (한글 최적화) */
+        word-break: keep-all !important; 
+        
+        line-height: 1.5 !important;
+        text-align: center !important;
+        
+        /* 너무 꽉 차지 않게 약간의 여백 */
+        width: 90% !important;
+        margin: 2px auto 3px auto !important; /* 중앙 정렬 및 하단 간격 */
     }
     
     .site-footer .copyright {
-        font-size: 10px !important;
+        font-size: 10px !important; /* 카피라이트는 조금 더 작게 */
         letter-spacing: 0 !important; 
-        margin-top: 3px !important;
-    }   
+        margin-top: 4px !important;
+        display: block !important;
+        width: 90% !important; /* 너비 확보 */
+        white-space: normal !important; /* 줄바꿈 허용 */
+    }
 }
