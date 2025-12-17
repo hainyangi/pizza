@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentAngle += SNAP_ANGLE; 
         
         // 피자 이미지에 새로운 transform 속성 적용 (회전)
-        pizzaImage.style.transform = `translateX(-50%) scale(0.9) rotate(${currentAngle}deg)`;
+        pizzaImage.style.transform = `rotate(${currentAngle}deg)`;
         
         // 회전이 끝난 후(transition duration 후) 일시 정지 및 다음 회전 준비
         setTimeout(() => {
@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
 
 
 
