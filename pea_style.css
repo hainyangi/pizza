@@ -10,7 +10,7 @@ html {
 }
 
 body {
-    width: 100vw; /* 뷰포트 너비 전체 */
+    width: 100%; /* 뷰포트 너비 전체 */
     height: 2400px; /* 뷰포트 높이 전체 */
     position: relative; /* 자식 요소의 절대 위치 기준 */
     display: flex; 
@@ -48,7 +48,7 @@ body {
     left: 0;
     height: 100%;
     /* 가로 크기 동적 계산: (전체 뷰포트 - 1440px 콘텐츠) / 2 */
-    width: calc((100vw - 1440px) / 2); 
+    width: calc((100% - 1440px) / 2); 
     min-width: 0; 
     background-image: url('source/pc_margin.png'); 
     background-repeat: repeat;
@@ -61,7 +61,7 @@ body {
     right: 0;
     height: 100%;
     /* 왼쪽 마진과 동일한 너비 설정 */
-    width: calc((100vw - 1440px) / 2); 
+    width: calc((100% - 1440px) / 2); 
     min-width: 0;
     background-image: url('source/pc_margin.png');
     background-repeat: repeat;
@@ -667,3 +667,4 @@ img.mini-pizza {
         margin-top: 3px !important;
     }
 }
+
