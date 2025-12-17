@@ -1,176 +1,142 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* ==========================================================
+ * [PC] 100vw 풀스크린 + 회전 애니메이션 + 푸터 스크롤
+ * ========================================================== */
 
-html {
+/* 1. 기본 설정 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* 가로 스크롤 방지 및 배경색 */
+html { 
+    width: 100%; 
+    overflow-x: hidden; 
     background-color: #fce4b4;
 }
 
+/* 2. Body: 세로 스크롤은 허용하되, 내용은 중앙 정렬 */
 body {
-    width: 100vw; 
-    min-height: auto; 
+    width: 100%; 
+    height: auto; 
+    min-height: 100vh; 
     
-    display: flex;
+    position: relative; 
+    display: flex; 
     flex-direction: column;
-    position: relative; 
-    overflow-x: hidden;
-    
-    background-color: transparent;
+    overflow-x: hidden; /* 가로 스크롤 방지 */
 }
 
-/* 1. 배경 처리 영역 */
+/* 3. 배경 고정  */
 .background-wrap {
-    position: absolute; 
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; 
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100vh; z-index: -1;
 }
-
 .paper-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100vh;
     background-image: url('source/pc_paper.png'); 
-    background-repeat: repeat;
-    mix-blend-mode: normal;
-    opacity: 1; 
+    background-repeat: repeat; opacity: 1;
 }
 
-/* 마진 배경 설정 */
-.margin-left {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: calc((100vw - 1440px) / 2); 
-    min-width: 0; 
+/* 양옆 마진: 해상도 상관없이 항상 양옆에 50px 두께로 고정 */
+.margin-left, .margin-right {
+    position: fixed; 
+    top: 0; 
+    height: 100vh;
+    width: 235px;
     background-image: url('source/pc_margin.png'); 
-    background-repeat: repeat;
+    background-repeat: repeat; z-index: 0;
 }
+.margin-left { left: 0; background-position: left top; }
+.margin-right { right: 0; background-position: right top; }
 
-.margin-right {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: calc((100vw - 1440px) / 2); 
-    min-width: 0;
-    background-image: url('source/pc_margin.png');
-    background-repeat: repeat;
-}
 
-/* 2. 메인 콘텐츠 영역 (위쪽 고정 및 중앙 정렬) */
+/* 4. 메인 콘텐츠: 정확히 화면 높이(100vh)만큼 차지 */
 .main-content {
-    width: 1440px; 
-    height: 948px; 
+    width: 100vw; 
+    height: 100vh;
     position: relative; 
-    
-    margin: 0 auto; 
     overflow: hidden; 
 }
 
-/* 이미지 요소 기본 설정 */
-.main-content img {
-    display: block;
-    position: absolute; 
-}
-
-/* 메인 타이틀 영역 */
+/* 5. 타이틀: 화면 상단 중앙 배치 */
 .title-wrap {
     position: absolute;
-    top: 80px; 
+    top: 4%;
     left: 50%;
-    transform: translateX(-50%) scale(1.2); 
-    width: 900px; 
-    height: 300px; 
+    transform: translateX(-50%);
+    width: 45vw; 
+    height: auto;
+    z-index: 20;
 }
+.main-title-img { 
+    width: 100%; 
+    height: auto; }
 
-.main-title-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    position: relative; 
-}
 
 /* 피자 섹션 및 애니메이션 */
 @keyframes rotate-pizza {
-    from { transform: translateX(-50%) scale(0.9) rotate(0deg); }
-    to { transform: translateX(-50%) scale(0.9) rotate(360deg); }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
-.pizza-image {
-    width: 100%; 
-    max-width: 900px; 
-    height: auto;
-    bottom: 0; 
+/* 6. 피자 섹션: 화면 정중앙 배치 */
+.pizza-section {
+    position: absolute;
+    
+    /* 화면 정중앙에 위치 잡기 */
+    top: 101%; 
     left: 50%;
-    transform: translateX(-50%) scale(0.9) rotate(0deg); 
-    z-index: 10; 
+    transform: translate(-50%, -50%) scale(1.2); 
+    
+    width: 100vw; 
+    height: auto;
+    z-index: 10;
+        display: flex; justify-content: center; align-items: center;
+}
+
+/* 피자 이미지 애니메이션 추가 */
+.pizza-image {
+    width: 63vw; /* 피자 크기 (화면 비례) */
+    max-width: none; height: auto; display: block;
     transition: transform 1.5s ease-in-out;
 }
 
-.pizza-section {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    transform: scale(1.72); 
-    top: 430px;
-    left: 0;
-}
-
+/* 점선 */
 .pizza-cutline {
-    width: 100%;
-    max-width: 900px; 
-    height: auto;
-    top: 45px;
-    left: 50%;
-    transform: translateX(-50%) scale(0.9); 
-    z-index: 11; 
+    position: absolute;
+    width: 63vw; /* 피자와 같은 크기 */
+    max-width: none; height: auto;
+    
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    
+    pointer-events: none; z-index: 11;
 }
 
+/* 7. 버튼 배치 */
 .btn {
     position: absolute; 
-    left: 46.2%; 
-    bottom: 570px; 
-    transform: translateX(-50%) scale(0.45); 
-    z-index: 9999; 
-    text-decoration: none;
-    transition: opacity 0.5s ease;
+    top: 40%; 
+    left: 50%;
+        
+    width: 8vw; /* 버튼 크기 */
+    transform: translate(-50%, -50%); /* 정확한 중앙 정렬 */
+    
+    z-index: 9999;
 }
-
-.btn img {
-    display: block; 
-    opacity: 0.7; 
-    transition: opacity 0.3s ease;
-}
-
-.btn:hover img {
-    opacity: 1.0;
-}
+.btn img { width: 100%; height: auto; display: block; }
 
 
-/* ==========================================================
- * 푸터(Footer) 스타일
- * ========================================================== */
+
+
+/* 8. 푸터: 메인 화면(100vh) 아래에 붙음 */
 .site-footer {
     position: relative; 
     width: 100%;
-    
     background-color: #fce4b4; 
     padding: 30px;
     text-align: center;
     z-index: 100;
-    
-    /* 본문과 딱 붙게 설정 */
-    margin-top: 0; 
 }
-
 .footer-content {
     width: 100%;
     max-width: 1200px;
@@ -261,7 +227,8 @@ body {
     /* 타이틀 */
     .title-wrap {
         position: relative !important;
-        top: auto !important; left: auto !important;
+        top: 3vh!important; 
+        left: auto !important;
         
         left: 50% !important;
         transform: translateX(-50%) !important; 
@@ -272,7 +239,7 @@ body {
         
         height: auto !important;
         margin-top: 0 !important; 
-        margin-bottom: 12vh !important; 
+        margin-bottom: 0vh !important; 
         z-index: 20;
     }
     
@@ -300,7 +267,7 @@ body {
     /* 피자 이미지 */
     .pizza-image {
         position: relative !important;
-        left: 50% !important; 
+        left: 5% !important; 
         top: auto !important; bottom: auto !important;
         
         width: 90% !important; 
@@ -339,28 +306,55 @@ body {
     }
     .btn img { width: 100%; }
 
-    /* 7. 푸터 */
+    
+   /* 7. 푸터 (모바일 수정) */
     .site-footer {
         position: absolute !important;
         bottom: 0 !important;
         width: 100% !important;
+        
+        /* 높이가 내용에 따라 늘어나도록 설정 */
+        height: auto !important; 
+        
         background-color: #fce4b4 !important; 
-        padding: 2vh 5vw !important; 
+        padding: 15px 10px !important; /* 양옆 패딩을 줄여서 글자 공간 확보 */
         z-index: 100 !important;
         box-sizing: border-box !important;
+        
+        /* 텍스트 중앙 정렬 */
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
     
+    .footer-content {
+        width: 100% !important;
+    }
+
     .footer-content p, .site-footer .kor-text {
         font-size: 10px !important; 
         letter-spacing: -0.5px !important; 
-        word-break: keep-all; 
-        white-space: nowrap; 
-        line-height: 1.4;
+        
+        /* [핵심 수정] 한 줄 강제 유지를 해제하고 줄바꿈 허용 */
+        white-space: normal !important; 
+        
+        /* 단어 단위로 끊어서 줄바꿈 (한글 최적화) */
+        word-break: keep-all !important; 
+        
+        line-height: 1.5 !important;
+        text-align: center !important;
+        
+        /* 너무 꽉 차지 않게 약간의 여백 */
+        width: 90% !important;
+        margin: 2px auto 3px auto !important; /* 중앙 정렬 및 하단 간격 */
     }
     
     .site-footer .copyright {
-        font-size: 10px !important;
+        font-size: 10px !important; /* 카피라이트는 조금 더 작게 */
         letter-spacing: 0 !important; 
-        margin-top: 3px !important;
-    }   
-}
+        margin-top: 4px !important;
+        display: block !important;
+        width: 90% !important; /* 너비 확보 */
+        white-space: normal !important; /* 줄바꿈 허용 */
+    }
